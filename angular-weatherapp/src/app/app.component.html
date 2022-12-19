@@ -1,0 +1,38 @@
+<div class="grid-container">
+  <div class="grid-element">
+    <p>
+      <label>
+        Stadt<br>
+        <input type="text" [(ngModel)]="cityToAdd">
+      </label>
+    </p>
+    <p>
+      <input [(ngModel)]="this.system" value="metric" type="radio" id="metric" name="units">
+      <label for="metric">
+        Celcius
+      </label>
+      <input [(ngModel)]="this.system" value="imperial" type="radio" id="imperial" name="units">
+      <label for="imperial">
+        Fahrenheit
+      </label>
+    </p>
+    <p>
+      <button (click)="this.addCity()">Hinzufügen</button>
+    </p>
+  </div>
+  <div *ngFor="let item of trackedWeathers; let i = index" class="grid-element">
+    <p>
+      {{item.city}}
+    </p>
+    <img [src]="item.weatherIcon">
+    <p>
+      {{item.weatherDescription}}
+    </p>
+    <p>
+      {{item.temperature}}{{item.system  === 'metric' ? '°C' : '°F'}}
+    </p>
+    <p>
+      <button (click)="this.deleteCity(i)">Delete</button>
+    </p>
+  </div>
+</div>
