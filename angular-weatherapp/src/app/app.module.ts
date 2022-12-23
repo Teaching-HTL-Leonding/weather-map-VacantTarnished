@@ -5,6 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AIRTABLE_KEY, OPENWEATHER_KEY, GEOAPIFY_KEY } from './tokens';
+import { AuthorizationInterceptor } from './authorization.interceptor';
 
 
 export const GEOAPIFY_URL = new InjectionToken<string>('GeoapifyUrl');
@@ -24,6 +25,7 @@ export const AIRTABLE_TOKEN = new InjectionToken<string>('AirtableToken');
     HttpClientModule
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthorizationInterceptor, multi: true},
     { provide: GEOAPIFY_URL, useValue: 'https://api.geoapify.com/v1/geocode/search'},
     { provide: GEOAPIFY_TOKEN, useValue: GEOAPIFY_KEY},
     { provide: OPENWEATHER_URL, useValue: 'https://api.openweathermap.org/data/2.5/weather'},

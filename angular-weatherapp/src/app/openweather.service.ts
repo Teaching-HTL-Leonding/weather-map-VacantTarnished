@@ -23,10 +23,10 @@ interface Main {
 })
 export class OpenweatherService {
 
-  constructor(@Inject(OPENWEATHER_URL) private url: string, @Inject(OPENWEATHER_TOKEN) private token: string, private httpClient: HttpClient) { }
+  constructor(@Inject(OPENWEATHER_URL) private url: string, private httpClient: HttpClient) { }
 
   getWeather(lat: number, lon: number, system: string): Observable<Root> {
     console.log(system)
-    return this.httpClient.get<Root>(`${this.url}?lat=${lat}&lon=${lon}&lang=de&units=${system}&appid=${this.token}`);
+    return this.httpClient.get<Root>(`${this.url}?lat=${lat}&lon=${lon}&lang=de&units=${system}`);
   }
 }

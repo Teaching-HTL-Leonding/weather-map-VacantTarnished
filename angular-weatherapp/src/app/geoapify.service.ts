@@ -20,7 +20,7 @@ export interface Result {
 })
 export class GeoapifyService {
 
-  constructor(@Inject(GEOAPIFY_URL) private url: string, @Inject(GEOAPIFY_TOKEN) private token: string, private httpClient: HttpClient) {}
+  constructor(@Inject(GEOAPIFY_URL) private url: String, private httpClient: HttpClient) {}
 
 
   getCoordinates(city: string): Observable<Root> {
@@ -28,6 +28,6 @@ export class GeoapifyService {
     let lon = 0;
     console.log(city);
 
-    return this.httpClient.get<Root>(`${this.url}?text=${city}&format=json&apiKey=${this.token}`);
+    return this.httpClient.get<Root>(`${this.url}?text=${city}&format=json`);
   }
 }
