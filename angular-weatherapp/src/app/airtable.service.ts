@@ -29,22 +29,14 @@ interface Fields {
 })
 export class AirtableService {
 
-  constructor(@Inject(AIRTABLE_URL) private url: string, @Inject(AIRTABLE_TOKEN) private token: string, private httpClient: HttpClient) { }
+  constructor(@Inject(AIRTABLE_URL) private url: string, private httpClient: HttpClient) { }
 
   getSavedWeatherLocations(): Observable<Root> {
-    return this.httpClient.get<Root>(this.url, {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${this.token}`
-      })
-    });
+    return this.httpClient.get<Root>(this.url);
   }
 
   deleteWeatherLocation(id: string) {
-    this.httpClient.delete(`${this.url}/${id}`, {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${this.token}`
-      })
-    }).subscribe();
+    this.httpClient.delete(`${this.url}/${id}`).subscribe();
   }
 
   addSavedWeatherLocation(newWeather: SavedCityWeather, lat: number, lon: number): Observable<any> {
@@ -59,11 +51,7 @@ export class AirtableService {
       system: newWeather.system
     }
 
-    return this.httpClient.post(this.url, { fields }, {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${this.token}`
-      })
-    });
+    return this.httpClient.post(this.url, { fields });
   }
 
   updateSavedWeatherLocation(newWeather: SavedCityWeather, id: string) {
@@ -76,10 +64,6 @@ export class AirtableService {
       system: newWeather.system
     }
 
-    this.httpClient.patch(`${this.url}/${id}`, { fields }, {
-      headers: new HttpHeaders({
-        Authorization: `Bearer ${this.token}`
-      })
-    }).subscribe();
+    this.httpClient.patch(`${this.url}/${id}`, { fields }).subscribe();
   }
 }

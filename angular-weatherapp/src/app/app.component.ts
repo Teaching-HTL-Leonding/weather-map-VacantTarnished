@@ -24,16 +24,11 @@ export class AppComponent implements OnInit{
   system = 'metric';
 
 
-  constructor(private geoapifyService: GeoapifyService, private openWeatherService: OpenweatherService, private airtableService: AirtableService) {
-
-  }
+  constructor(private geoapifyService: GeoapifyService, private openWeatherService: OpenweatherService, private airtableService: AirtableService) {}
 
   ngOnInit() {
     this.airtableService.getSavedWeatherLocations().subscribe(result => {
       result.records.forEach(record => {
-        console.log((Date.now().valueOf() - Date.parse(record.fields.time))/1000/60);
-        console.log(record.fields.system);
-
         if ((Date.now().valueOf() - Date.parse(record.fields.time))/1000/60 >= 30)  {
           this.openWeatherService.getWeather(record.fields.lat, record.fields.lon, record.fields.system)
             .subscribe(weather => {
@@ -45,7 +40,6 @@ export class AppComponent implements OnInit{
                 temperature: weather.main.temp,
                 system: record.fields.system
               };
-              console.log(newWeather);
 
               this.airtableService.updateSavedWeatherLocation(newWeather, record.id);
               this.trackedWeathers.push(newWeather);
@@ -59,7 +53,6 @@ export class AppComponent implements OnInit{
             temperature: record.fields.temp,
             system: record.fields.system
           }
-          console.log(newWeather);
           this.trackedWeathers.push(newWeather);
 
         }
