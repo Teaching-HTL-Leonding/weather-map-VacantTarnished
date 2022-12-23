@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { OPENWEATHER_TOKEN, OPENWEATHER_URL } from './app.module';
+import { OPENWEATHER_URL } from './app.module';
 
 interface Root {
   weather: Weather[];

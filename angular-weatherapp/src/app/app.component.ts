@@ -41,7 +41,7 @@ export class AppComponent implements OnInit{
                 system: record.fields.system
               };
 
-              this.airtableService.updateSavedWeatherLocation(newWeather, record.id);
+              this.airtableService.updateSavedWeatherLocation(newWeather, record.id).subscribe();
               this.trackedWeathers.push(newWeather);
             })
         } else {
@@ -84,6 +84,6 @@ export class AppComponent implements OnInit{
 
   public deleteCity(city: number) {
     let id = this.trackedWeathers.splice(city, 1)[0].id!;
-    this.airtableService.deleteWeatherLocation(id);
+    this.airtableService.deleteWeatherLocation(id).subscribe();
   }
 }
